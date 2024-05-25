@@ -13,6 +13,10 @@ h1{
     margin: 0;
     padding: 15px;
 }
+img{
+    width: 230;
+    height: 230;
+}
 .row {
     display: flex;
     flex-wrap: wrap;
