@@ -1,59 +1,238 @@
-body{
-    margin: 0px;
-}
-a{
-    color: rgb(60, 60, 60);
-    text-decoration: none;
-}
-h1{
-    font-size: 33px;
-    text-align: center;
-    border-bottom: 1px rgb(242, 251, 255);
-    margin: 0;
-    padding: 15px;
-}
-img{
-    width: 230px;
-    height: 230px;
-}
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0 3px;
-  }
-.column {
-    flex: 50%;
-    padding: 0 3px;
-  }
-  
-.column img {
-    margin-top: 3px;
-    vertical-align: middle;
-  }
-#grid ol{
-    border-right: 1px rgb(242, 251, 255);
-    width: 69px;
-    margin: 0;
-    padding: 15px;
-}
-#grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    text-align: center;
-}
-#article{
-    padding-left: 25px;
+:root {
+  --ink: #1a1a1a;
+  --ink-soft: #6b6b6b;
+  --ink-faint: #b8b8b8;
+  --paper: #fafaf7;
+  --line: #e8e6df;
+  --accent: #2a3f2a;
+  --serif: "Cormorant Garamond", "Apple SD Gothic Neo", "Noto Serif KR", Georgia, serif;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
 }
 
+* { box-sizing: border-box; }
 
-@media (max-width: 800px){
-    #grid{
-        display: block;
-    }
-    #grid ol{
-        border-right: none;
-    }
-    h1{
-        border-bottom: none;
-    }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+a:hover { color: var(--ink-soft); }
+
+img { display: block; max-width: 100%; height: auto; }
+
+/* ---------- top bar ---------- */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 28px 48px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+  background: rgba(250, 250, 247, 0.85);
+}
+.topbar .brand {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.topbar nav {
+  display: flex;
+  gap: 28px;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.topbar nav a.current { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+
+/* ---------- home hero ---------- */
+.hero {
+  min-height: 72vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(56px, 10vw, 132px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+  line-height: 1.05;
+}
+.hero .subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--ink-soft);
+  margin: 0 0 64px;
+}
+.year-menu {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 22px;
+}
+.year-menu a {
+  position: relative;
+  padding: 6px 2px;
+  color: var(--ink-soft);
+}
+.year-menu a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 240ms ease;
+}
+.year-menu a:hover { color: var(--ink); }
+.year-menu a:hover::after { transform: scaleX(1); }
+.year-menu .ing { font-style: italic; color: var(--accent); }
+
+/* ---------- year page header ---------- */
+.year-header {
+  text-align: center;
+  padding: 80px 24px 24px;
+}
+.year-header .label {
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 12px;
+}
+.year-header h1 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 7vw, 84px);
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ---------- alternating gallery ---------- */
+.gallery {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 120px;
+}
+.piece {
+  display: flex;
+  margin: 96px 0;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 900ms ease, transform 900ms ease;
+}
+.piece.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+.piece:nth-child(odd)  { justify-content: flex-start; }
+.piece:nth-child(even) { justify-content: flex-end; }
+
+.piece figure {
+  margin: 0;
+  width: min(72%, 760px);
+}
+.piece img {
+  width: 100%;
+  box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.25);
+}
+.piece figcaption {
+  margin-top: 14px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.piece:nth-child(even) figcaption { text-align: right; }
+
+/* ---------- footer ---------- */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 32px 48px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  text-align: center;
+}
+
+/* ---------- "in preparation" page ---------- */
+.empty {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 24px;
+}
+.empty .glyph {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 64px;
+  color: var(--ink-faint);
+  margin-bottom: 18px;
+}
+.empty p {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ---------- ing (melon soda) page ---------- */
+.ing-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 130px);
+  padding: 24px;
+}
+.ing-stage canvas {
+  display: block;
+  width: 320px;
+  height: auto;
+  max-width: 90vw;
+}
+.ing-caption {
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--ink-soft);
+  padding: 0 24px 60px;
+}
+
+/* ---------- mobile ---------- */
+@media (max-width: 720px) {
+  .topbar { padding: 18px 20px; flex-direction: column; gap: 12px; align-items: center; }
+  .topbar nav { gap: 18px; font-size: 11px; }
+  .year-menu { gap: 24px; font-size: 18px; }
+  .piece { margin: 56px 0; }
+  .piece figure { width: 100%; }
+  .gallery { padding: 24px 16px 80px; }
+  .footer { padding: 24px 20px; }
 }

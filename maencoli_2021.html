@@ -1,25 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Maencoli</title>
+  <title>Maencoli · ing</title>
   <link href="image/img.png" rel="shortcut icon" type="image/x-icon">
-
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <style type="text/css"> </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1><a href="index.html"> ...ing </a></h1>
-  <div id = "grid">
-    <a href="maencoli_2024.html">2024</a>
-    <a href="maencoli_2023.html">2023</a>
-    <a href="maencoli_2022.html">2022</a>
-    <a href="maencoli_2021.html">ing</a>
+  <header class="topbar">
+    <a class="brand" href="index.html">Maencoli</a>
+    <nav>
+      <a href="index.html" class="current">Gallery</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
+
+  <section class="year-header">
+    <div class="label">In progress</div>
+    <h1><em>...ing</em></h1>
+  </section>
+
+  <div class="ing-stage">
+    <canvas></canvas>
   </div>
-  <canvas></canvas>
-  <script src="canvas.js"></script> 
+  <p class="ing-caption">melon soda, in a quiet afternoon</p>
+
+  <footer class="footer">© Maencoli</footer>
+  <script src="canvas.js"></script>
 </body>
 </html>

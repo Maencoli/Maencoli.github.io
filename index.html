@@ -1,21 +1,38 @@
+<!DOCTYPE html>
 <html lang="ko">
-<head>  
-  <title>Maencoli</title>
-  <link href="image/img.png" rel="shortcut icon" type="image/x-icon">
-
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Maencoli — a small gallery of works by year.">
+  <title>Maencoli</title>
+  <link href="image/img.png" rel="shortcut icon" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  
 </head>
 <body>
-  <h1><a href="index.html">Gallery Maencoli</a></h1>
-  <div id = "grid">
-    <a href="maencoli_2024.html">2024</a>
-    <a href="maencoli_2023.html">2023</a>
-    <a href="maencoli_2022.html">2022</a>
-    <a href="maencoli_2021.html">ing</a>
+  <header class="topbar">
+    <a class="brand" href="index.html">Maencoli</a>
+    <nav>
+      <a href="index.html" class="current">Gallery</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-</div>
+  <main class="hero">
+    <h1>Maencoli</h1>
+    <p class="subtitle">a small archive of works, by year</p>
+    <div class="year-menu">
+      <a class="ing" href="maencoli_2021.html">ing</a>
+      <a href="maencoli_2026.html">2026</a>
+      <a href="maencoli_2025.html">2025</a>
+      <a href="maencoli_2024.html">2024</a>
+      <a href="maencoli_2023.html">2023</a>
+      <a href="maencoli_2022.html">2022</a>
+    </div>
+  </main>
+
+  <footer class="footer">© Maencoli</footer>
 </body>
 </html>

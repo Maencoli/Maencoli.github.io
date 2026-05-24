@@ -1,42 +1,36 @@
+<!DOCTYPE html>
 <html lang="ko">
-<head>  
-  <title>Maencoli</title>
-  <link href="image/img.png" rel="shortcut icon" type="image/x-icon">
-
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maencoli · 2022</title>
+  <link href="image/img.png" rel="shortcut icon" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1><a href="index.html">2022 GMK work</a></h1>
-  <div id = "grid">
-    <a href="maencoli_2024.html">2024</a>
-    <a href="maencoli_2023.html">2023</a>
-    <a href="maencoli_2022.html">2022</a>
-    <a href="maencoli_2021.html">ing</a>
-  </div>
-    <div id = "images"> 
-      <div class="row">
-        <div class="column">
-          <img src="image/gmk_2201.png">
-          <img src="image/gmk_2202.png">
-          <img src="image/gmk_2203.png">
-          <img src="image/gmk_2204.png">
-        </div>
-        <div class="column">
-          <img src="image/gmk_2205.png">
-          <img src="image/gmk_2206.png">
-          <img src="image/gmk_2207.png">
-          <img src="image/gmk_2208.png">
-        </div>
-        <div class="column">
-          <img src="image/gmk_2209.png">
-          <img src="image/gmk_2210.png">
-          <img src="image/gmk_2211.png">
-          <img src="image/gmk_2212.png">
-        </div>
-      </div>
+  <header class="topbar">
+    <a class="brand" href="index.html">Maencoli</a>
+    <nav>
+      <a href="index.html" class="current">Gallery</a>
+      <a href="about.html">About</a>
+    </nav>
+  </header>
 
-</div>
+  <section class="year-header">
+    <div class="label">Works</div>
+    <h1>2022</h1>
+  </section>
+
+  <main class="gallery">
+    <article class="piece"><figure><img src="image/gmk_2203.png" alt="2022 work 03"><figcaption>gmk_2203</figcaption></figure></article>
+    <article class="piece"><figure><img src="image/gmk_2207.png" alt="2022 work 07"><figcaption>gmk_2207</figcaption></figure></article>
+    <article class="piece"><figure><img src="image/gmk_2209.png" alt="2022 work 09"><figcaption>gmk_2209</figcaption></figure></article>
+  </main>
+
+  <footer class="footer">© Maencoli</footer>
+  <script src="script.js"></script>
 </body>
 </html>
