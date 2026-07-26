@@ -212,11 +212,23 @@ img { display: block; max-width: 100%; height: auto; }
   min-height: calc(100vh - 130px);
   padding: 24px;
 }
+.ing-visual {
+  position: relative;
+  width: 320px;
+  max-width: 90vw;
+}
 .ing-stage canvas {
   display: block;
-  width: 320px;
+  width: 100%;
   height: auto;
-  max-width: 90vw;
+}
+.ing-giraffe {
+  position: absolute;
+  width: 232px;
+  left: 144px;
+  top: -127px;
+  pointer-events: none;
+  z-index: 2;
 }
 .ing-caption {
   text-align: center;
