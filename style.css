@@ -70,7 +70,8 @@ img { display: block; max-width: 100%; height: auto; }
 .year-nav {
   list-style: none;
   margin: 0;
-  padding: 18px 0 0;
+  padding: 18px 16px 12px 0;
+  background: var(--paper);
   position: absolute;
   top: 100%;
   left: 0;
@@ -96,8 +97,10 @@ img { display: block; max-width: 100%; height: auto; }
   transform-origin: left center;
   transition: transform 240ms ease;
 }
-.year-nav a:hover { color: var(--ink); }
-.year-nav a:hover::after { transform: scaleX(1); }
+.year-nav a:hover,
+.year-nav a.current { color: var(--ink); }
+.year-nav a:hover::after,
+.year-nav a.current::after { transform: scaleX(1); }
 .topbar-home { border-bottom-color: transparent; }
 
 /* ---------- year page header ---------- */
@@ -229,7 +232,7 @@ img { display: block; max-width: 100%; height: auto; }
   .topbar { padding: 18px 20px; flex-direction: column; gap: 12px; align-items: center; }
   .topbar nav { gap: 18px; font-size: 11px; }
   .topbar-right { align-items: center; }
-  .year-nav { position: static; flex-direction: row; gap: 18px; padding-top: 10px; font-size: 18px; }
+  .year-nav { position: static; flex-direction: row; gap: 18px; padding: 10px 0 0; background: none; font-size: 18px; }
   .piece { margin: 56px 0; }
   .piece figure { width: 100%; }
   .gallery { padding: 24px 16px 80px; }
