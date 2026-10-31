@@ -210,25 +210,19 @@ img { display: block; max-width: 100%; height: auto; }
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 130px);
-  padding: 24px;
+  padding: 8px 24px 24px;
 }
 .ing-visual {
   position: relative;
-  width: 320px;
-  max-width: 90vw;
+  width: min(86vw, 360px);
 }
 .ing-stage canvas {
   display: block;
   width: 100%;
   height: auto;
-}
-.ing-giraffe {
-  position: absolute;
-  width: 232px;
-  left: 144px;
-  top: -127px;
-  pointer-events: none;
-  z-index: 2;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .ing-caption {
   text-align: center;
@@ -236,6 +230,10 @@ img { display: block; max-width: 100%; height: auto; }
   font-style: italic;
   color: var(--ink-soft);
   padding: 0 24px 60px;
+}
+.ing-hint {
+  font-size: 14px;
+  color: var(--ink-faint);
 }
 
 /* ---------- mobile ---------- */
