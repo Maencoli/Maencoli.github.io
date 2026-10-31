@@ -221,9 +221,11 @@
     ctx.clip();
     ctx.strokeStyle = "#D8344D";
     ctx.lineWidth = 7;
+    // stripe slant: SLANT stripe-widths of lag between the straw's two edges (0.6 was ~22deg, 1.1 is ~37deg)
+    const SLANT = 1.1;
     const n = Math.round(len / 26);
-    for (let i = 0; i < n; i++) {
-      const t1 = i / n, t2 = (i - 0.6) / n;
+    for (let i = 0; i <= n + 1; i++) {
+      const t1 = i / n, t2 = (i - SLANT) / n;
       ctx.beginPath();
       ctx.moveTo(tl.x + (bl.x - tl.x) * t1, tl.y + (bl.y - tl.y) * t1);
       ctx.lineTo(tr.x + (br.x - tr.x) * t2, tr.y + (br.y - tr.y) * t2);
