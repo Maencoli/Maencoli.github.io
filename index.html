@@ -12,27 +12,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
+  <header class="topbar topbar-home">
     <a class="brand" href="index.html">Maencoli</a>
-    <nav>
-      <a href="index.html" class="current">Gallery</a>
-      <a href="about.html">About</a>
-    </nav>
+    <div class="topbar-right">
+      <nav>
+        <a href="index.html" class="current">Gallery</a>
+        <a href="about.html">About</a>
+      </nav>
+      <ul class="year-nav">
+        <li><a href="maencoli_2026.html">2026</a></li>
+        <li><a href="maencoli_2025.html">2025</a></li>
+        <li><a href="maencoli_2024.html">2024</a></li>
+        <li><a href="maencoli_2023.html">2023</a></li>
+        <li><a href="maencoli_2022.html">2022</a></li>
+      </ul>
+    </div>
   </header>
 
-  <main class="hero">
-    <h1>Maencoli</h1>
-    <p class="subtitle">a small archive of works, by year</p>
-    <div class="year-menu">
-      <a class="ing" href="maencoli_2021.html">ing</a>
-      <a href="maencoli_2026.html">2026</a>
-      <a href="maencoli_2025.html">2025</a>
-      <a href="maencoli_2024.html">2024</a>
-      <a href="maencoli_2023.html">2023</a>
-      <a href="maencoli_2022.html">2022</a>
+  <main class="scene-stage">
+    <div class="scene-visual">
+      <canvas role="img" aria-label="A giraffe stirring a melon soda through a straw"></canvas>
     </div>
   </main>
+  <p class="scene-caption">melon soda, in a quiet afternoon<br><span class="scene-hint">hover to stir · click to blow</span></p>
 
   <footer class="footer">© Maencoli</footer>
+  <script src="giraffe-soda.js"></script>
 </body>
 </html>

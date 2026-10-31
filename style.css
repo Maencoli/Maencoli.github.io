@@ -60,45 +60,33 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .topbar nav a.current { color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
 
-/* ---------- home hero ---------- */
-.hero {
-  min-height: 72vh;
+/* ---------- home: years sit right under Gallery ---------- */
+.topbar-right {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 80px 24px;
+  align-items: flex-start;
 }
-.hero h1 {
-  font-family: var(--serif);
-  font-size: clamp(56px, 10vw, 132px);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  margin: 0 0 16px;
-  line-height: 1.05;
-}
-.hero .subtitle {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 18px;
-  color: var(--ink-soft);
-  margin: 0 0 64px;
-}
-.year-menu {
+.year-nav {
+  list-style: none;
+  margin: 0;
+  padding: 18px 0 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
   display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
   font-family: var(--serif);
-  font-size: 22px;
+  font-size: 20px;
 }
-.year-menu a {
+.year-nav a {
   position: relative;
-  padding: 6px 2px;
+  display: inline-block;
+  padding: 2px 0;
   color: var(--ink-soft);
 }
-.year-menu a::after {
+.year-nav a::after {
   content: "";
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -108,9 +96,9 @@ img { display: block; max-width: 100%; height: auto; }
   transform-origin: left center;
   transition: transform 240ms ease;
 }
-.year-menu a:hover { color: var(--ink); }
-.year-menu a:hover::after { transform: scaleX(1); }
-.year-menu .ing { font-style: italic; color: var(--accent); }
+.year-nav a:hover { color: var(--ink); }
+.year-nav a:hover::after { transform: scaleX(1); }
+.topbar-home { border-bottom-color: transparent; }
 
 /* ---------- year page header ---------- */
 .year-header {
@@ -204,19 +192,19 @@ img { display: block; max-width: 100%; height: auto; }
   font-style: italic;
 }
 
-/* ---------- ing (melon soda) page ---------- */
-.ing-stage {
+/* ---------- home scene (giraffe + melon soda) ---------- */
+.scene-stage {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: calc(100vh - 130px);
   padding: 8px 24px 24px;
 }
-.ing-visual {
+.scene-visual {
   position: relative;
-  width: min(86vw, 360px);
+  width: min(82vw, 300px);
 }
-.ing-stage canvas {
+.scene-stage canvas {
   display: block;
   width: 100%;
   height: auto;
@@ -224,14 +212,14 @@ img { display: block; max-width: 100%; height: auto; }
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
-.ing-caption {
+.scene-caption {
   text-align: center;
   font-family: var(--serif);
   font-style: italic;
   color: var(--ink-soft);
   padding: 0 24px 60px;
 }
-.ing-hint {
+.scene-hint {
   font-size: 14px;
   color: var(--ink-faint);
 }
@@ -240,7 +228,8 @@ img { display: block; max-width: 100%; height: auto; }
 @media (max-width: 720px) {
   .topbar { padding: 18px 20px; flex-direction: column; gap: 12px; align-items: center; }
   .topbar nav { gap: 18px; font-size: 11px; }
-  .year-menu { gap: 24px; font-size: 18px; }
+  .topbar-right { align-items: center; }
+  .year-nav { position: static; flex-direction: row; gap: 18px; padding-top: 10px; font-size: 18px; }
   .piece { margin: 56px 0; }
   .piece figure { width: 100%; }
   .gallery { padding: 24px 16px 80px; }

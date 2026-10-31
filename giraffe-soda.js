@@ -4,7 +4,7 @@
   // Scene is authored in the 2000x2000 coordinate space of the drawn parts;
   // the canvas shows only the region that matters.
   const OX = 770, OY = 500, W = 880, H = 1500;
-  const cv = document.querySelector(".ing-stage canvas");
+  const cv = document.querySelector(".scene-stage canvas");
   if (!cv) return;
   cv.width = W;
   cv.height = H;
