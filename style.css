@@ -160,6 +160,69 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .piece:nth-child(even) figcaption { text-align: right; }
 
+/* ---------- about (fits one screen) ---------- */
+.page-about {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+.about-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.about {
+  flex: 1;
+  width: fit-content;
+  max-width: calc(100% - 48px);
+  margin: 0 auto;
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly; /* same space above, between and below the rows */
+  gap: 24px;
+  font-family: "Noto Serif KR", var(--serif);
+}
+.about-row {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  column-gap: 22px;
+  align-items: baseline;
+  text-align: left;
+}
+.about-tag {
+  text-align: right;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-faint);
+}
+.about-text {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 2.1;
+  word-break: keep-all;
+  color: var(--ink);
+}
+.about-text strong { font-weight: 400; }
+.about-link {
+  display: inline-block;
+  margin-left: 6px;
+  padding-bottom: 1px;
+  border-bottom: 1px solid var(--ink-faint);
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+.about-link:hover { color: var(--ink); border-color: var(--ink); }
+
 /* ---------- footer ---------- */
 .footer {
   border-top: 1px solid var(--line);
@@ -237,4 +300,9 @@ img { display: block; max-width: 100%; height: auto; }
   .piece figure { width: 100%; }
   .gallery { padding: 24px 16px 80px; }
   .footer { padding: 24px 20px; }
+  .about { padding: 16px 0; gap: 16px; }
+  .about-row { grid-template-columns: 1fr; row-gap: 1px; text-align: center; }
+  .about-tag { text-align: center; font-size: 14px; }
+  .about-text { font-size: 13px; line-height: 2; }
+  .page-about .footer { padding: 14px 20px; }
 }
