@@ -306,3 +306,111 @@ img { display: block; max-width: 100%; height: auto; }
   .about-text { font-size: 13px; line-height: 2; }
   .page-about .footer { padding: 14px 20px; }
 }
+
+/* ---------- 2027 calendar reservation ---------- */
+.reserve-main [hidden] { display: none !important; }
+.reserve-main {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+  font-family: "Noto Serif KR", var(--serif);
+}
+.reserve-head { text-align: center; margin-bottom: 40px; }
+.reserve-eyebrow {
+  margin: 0 0 6px;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--ink-faint);
+}
+.reserve-title {
+  margin: 0 0 14px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0.01em;
+}
+.reserve-desc {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 2;
+  color: var(--ink-soft);
+  word-break: keep-all;
+}
+.reserve-form { display: flex; flex-direction: column; gap: 22px; }
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label {
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.field label .opt { color: var(--ink-faint); text-transform: none; letter-spacing: 0; }
+.field input, .field textarea, .field select {
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: "Noto Serif KR", var(--serif);
+  font-size: 15px;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 180ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.field textarea { resize: vertical; min-height: 72px; line-height: 1.8; }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--ink); }
+.qty { display: flex; align-items: center; gap: 18px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.qty button {
+  width: 30px; height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  font-size: 16px;
+  cursor: pointer;
+}
+.qty button:hover { border-color: var(--ink); }
+.qty output { min-width: 20px; text-align: center; font-size: 15px; }
+.consent {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 12px; font-weight: 300; line-height: 1.8; color: var(--ink-soft);
+  word-break: keep-all;
+}
+.consent input { margin-top: 5px; accent-color: var(--accent); }
+.reserve-submit {
+  margin-top: 8px;
+  padding: 14px 0;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease;
+}
+.reserve-submit:hover { background: transparent; color: var(--ink); }
+.reserve-submit:disabled { opacity: 0.5; cursor: default; }
+.reserve-status {
+  min-height: 1.8em;
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-soft);
+}
+.reserve-done { text-align: center; padding: 40px 0; }
+.reserve-done p { font-size: 14px; font-weight: 300; line-height: 2.1; }
+.reserve-back { display: table; margin: 28px auto 0; }
+@media (max-width: 720px) {
+  .reserve-main { padding: 36px 16px 60px; }
+  .reserve-title { font-size: 26px; }
+}

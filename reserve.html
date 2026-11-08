@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2027 Calendar · Maencoli</title>
+  <link href="image/img.png" rel="shortcut icon" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">Maencoli</a>
+    <nav>
+      <a href="index.html">Gallery</a>
+      <a href="about.html" class="current">About</a>
+    </nav>
+  </header>
+
+  <main class="reserve-main">
+    <div class="reserve-head">
+      <p class="reserve-eyebrow">calendar</p>
+      <h1 class="reserve-title">2027</h1>
+      <p class="reserve-desc">‘기린은 목이 길다’ 2027년 달력 예약을 받아요.<br>제작이 끝나면 남겨주신 연락처로 안내드릴게요.</p>
+    </div>
+
+    <form class="reserve-form" id="reserve-form" novalidate>
+      <div class="field">
+        <label for="name">이름</label>
+        <input id="name" name="name" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="email">이메일</label>
+        <input id="email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="phone">연락처 <span class="opt">(선택)</span></label>
+        <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+      </div>
+      <div class="field">
+        <label>수량</label>
+        <div class="qty">
+          <button type="button" data-step="-1" aria-label="수량 줄이기">−</button>
+          <output id="qty-out">1</output>
+          <button type="button" data-step="1" aria-label="수량 늘리기">+</button>
+        </div>
+        <input type="hidden" name="quantity" id="quantity" value="1">
+      </div>
+      <div class="field">
+        <label for="message">남길 말 <span class="opt">(선택)</span></label>
+        <textarea id="message" name="message" rows="3"></textarea>
+      </div>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+      <label class="consent">
+        <input type="checkbox" id="agree" required>
+        <span>예약 안내를 위해 이름·연락처를 수집하고, 안내가 끝나면 삭제하는 데 동의해요.</span>
+      </label>
+
+      <button class="reserve-submit" type="submit">예약하기</button>
+      <p class="reserve-status" id="reserve-status" role="status"></p>
+    </form>
+
+    <div class="reserve-done" id="reserve-done" hidden>
+      <p>예약이 접수됐어요. 고마워요!<br>제작이 끝나면 연락드릴게요.</p>
+    </div>
+
+    <a class="about-link reserve-back" href="about.html">← About</a>
+  </main>
+
+  <footer class="footer">© Maencoli</footer>
+
+  <script>
+    // 예약 접수처: 구글 시트에 붙인 앱스크립트 웹 앱 주소(https://script.google.com/macros/s/.../exec).
+    // 만드는 방법은 apps-script/README.md 참고. 비어 있으면 미리보기 모드(아무 데도 보내지 않음).
+    const FORM_ENDPOINT = '';
+
+    const form = document.getElementById('reserve-form');
+    const F = form.elements;
+    const status = document.getElementById('reserve-status');
+    const qtyOut = document.getElementById('qty-out');
+    const qtyInput = document.getElementById('quantity');
+    const MAX_QTY = 10;
+
+    form.querySelectorAll('.qty button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const next = Math.min(MAX_QTY, Math.max(1, Number(qtyInput.value) + Number(btn.dataset.step)));
+        qtyInput.value = next;
+        qtyOut.textContent = next;
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = F.name.value.trim();
+      const email = F.email.value.trim();
+      if (!name) return showError('이름을 적어주세요.', F.name);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('이메일 주소를 확인해 주세요.', F.email);
+      if (!document.getElementById('agree').checked) return showError('수집 동의에 체크해 주세요.');
+
+      const data = {
+        name, email,
+        phone: F.phone.value.trim(),
+        quantity: qtyInput.value,
+        message: F.message.value.trim(),
+        website: F.website.value  // 스팸봇 함정 칸(사람에겐 안 보임)
+      };
+
+      const btn = form.querySelector('.reserve-submit');
+      btn.disabled = true;
+      status.textContent = '보내는 중…';
+
+      if (!FORM_ENDPOINT) {
+        console.log('[미리보기] 예약 데이터:', data);
+        setTimeout(done, 400);
+        return;
+      }
+      try {
+        // text/plain으로 보내야 브라우저가 사전 요청(CORS preflight) 없이 앱스크립트로 바로 보내요.
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(data)
+        });
+        const out = await res.json();
+        if (!out.ok) throw new Error(out.error || 'failed');
+        done();
+      } catch (err) {
+        btn.disabled = false;
+        showError('전송에 실패했어요. 잠시 후 다시 시도해 주세요.');
+      }
+    });
+
+    function showError(msg, field) {
+      status.textContent = msg;
+      if (field) field.focus();
+    }
+    function done() {
+      form.hidden = true;
+      document.getElementById('reserve-done').hidden = false;
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+</html>
