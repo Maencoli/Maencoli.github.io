@@ -319,7 +319,7 @@ img { display: block; max-width: 100%; height: auto; }
   --accent-soft: #e9e4d8;
   max-width: 560px;
   margin: 0 auto;
-  padding: 56px 20px 88px;
+  padding: 64px 20px 72px;
   font-family: "Noto Serif KR", var(--serif);
   color: var(--ink);
   word-break: keep-all;
