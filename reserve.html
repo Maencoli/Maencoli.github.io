@@ -23,47 +23,76 @@
     <div class="reserve-head">
       <p class="reserve-eyebrow">calendar</p>
       <h1 class="reserve-title">2027</h1>
-      <p class="reserve-desc">‘기린은 목이 길다’ 2027년 달력 예약을 받아요.<br>제작이 끝나면 남겨주신 연락처로 안내드릴게요.</p>
+      <p class="reserve-desc">‘기린은 목이 길다’ 2027년 달력 예약을 받아요.<br>제작이 완료되면 남겨주신 연락처로 연락드리겠습니다.</p>
     </div>
+
+    <section class="sample" aria-label="달력 샘플">
+      <div class="sample-track" id="sample-track">
+        <figure><img src="image/cal-2027-cover.jpg" alt="2027 달력 표지 샘플" draggable="false"><figcaption>cover</figcaption></figure>
+        <figure><img src="image/cal-2027-jan.jpg" alt="1월 그림과 달력 샘플" loading="lazy" draggable="false"><figcaption>January</figcaption></figure>
+        <figure><img src="image/cal-2027-may.jpg" alt="5월 그림과 달력 샘플" loading="lazy" draggable="false"><figcaption>May</figcaption></figure>
+        <figure><img src="image/cal-2027-aug.jpg" alt="8월 그림과 달력 샘플" loading="lazy" draggable="false"><figcaption>August</figcaption></figure>
+      </div>
+      <div class="sample-dots" id="sample-dots"></div>
+      <p class="sample-note">샘플 이미지예요 · 옆으로 넘겨보세요</p>
+    </section>
+
+    <section class="price" aria-label="가격">
+      <div class="price-row"><span>달력 1개</span><b>13,000원</b></div>
+      <div class="price-row"><span>택배비</span><b>3,000원</b></div>
+      <div class="price-row price-total"><span>합계 <span id="total-label">(1개, 택배 포함)</span></span><b id="total">16,000원</b></div>
+      <p class="price-note">택배가 아닌 다른 방법으로 받고 싶으시면 아래 ‘남길 말’에 적어주세요.</p>
+    </section>
 
     <form class="reserve-form" id="reserve-form" novalidate>
       <div class="field">
-        <label for="name">이름</label>
-        <input id="name" name="name" type="text" autocomplete="name" required>
+        <label for="name">이름<span class="req">*</span></label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="50" placeholder="받으실 분 성함" required>
       </div>
+
       <div class="field">
-        <label for="email">이메일</label>
-        <input id="email" name="email" type="email" autocomplete="email" required>
+        <span class="label" id="phone-label">연락처<span class="req">*</span></span>
+        <div class="phone" role="group" aria-labelledby="phone-label">
+          <span class="phone-prefix">010</span>
+          <span class="phone-dash">-</span>
+          <input id="phone1" type="tel" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="0000" aria-label="연락처 가운데 네 자리" autocomplete="off" required>
+          <span class="phone-dash">-</span>
+          <input id="phone2" type="tel" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="0000" aria-label="연락처 마지막 네 자리" autocomplete="off" required>
+        </div>
       </div>
+
       <div class="field">
-        <label for="phone">연락처 <span class="opt">(선택)</span></label>
-        <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
-      </div>
-      <div class="field">
-        <label>수량</label>
+        <span class="label">수량</span>
         <div class="qty">
           <button type="button" data-step="-1" aria-label="수량 줄이기">−</button>
-          <output id="qty-out">1</output>
+          <output id="qty-out" aria-live="polite">1</output>
           <button type="button" data-step="1" aria-label="수량 늘리기">+</button>
         </div>
-        <input type="hidden" name="quantity" id="quantity" value="1">
       </div>
+
       <div class="field">
         <label for="message">남길 말 <span class="opt">(선택)</span></label>
-        <textarea id="message" name="message" rows="3"></textarea>
+        <textarea id="message" name="message" rows="3" maxlength="1000" placeholder="택배 외 다른 방법으로 받고 싶으시면 여기에 적어주세요."></textarea>
       </div>
+
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-      <label class="consent">
-        <input type="checkbox" id="agree" required>
-        <span>예약 안내를 위해 이름·연락처를 수집하고, 안내가 끝나면 삭제하는 데 동의해요.</span>
-      </label>
+
+      <div class="consent">
+        <label class="consent-check">
+          <input type="checkbox" id="agree" required>
+          <span>개인정보 수집·이용에 동의합니다. <span class="req">(필수)</span></span>
+        </label>
+        <p class="consent-body">수집 항목: 이름, 연락처<br>이용 목적: 주문 확인 용도로만 사용하며, 확인이 끝나면 바로 파기합니다.</p>
+      </div>
 
       <button class="reserve-submit" type="submit">예약하기</button>
       <p class="reserve-status" id="reserve-status" role="status"></p>
     </form>
 
     <div class="reserve-done" id="reserve-done" hidden>
-      <p>예약이 접수됐어요. 고마워요!<br>제작이 끝나면 연락드릴게요.</p>
+      <p class="reserve-done-title">Thank you</p>
+      <p>예약이 접수되었습니다.<br>제작이 완료되면 남겨주신 연락처로 연락드리겠습니다.<br>감사합니다.</p>
+      <p class="summary" id="done-summary"></p>
     </div>
 
     <a class="about-link reserve-back" href="about.html">← About</a>
@@ -72,50 +101,96 @@
   <footer class="footer">© Maencoli</footer>
 
   <script>
-    // 예약 접수처: 구글 시트에 붙인 앱스크립트 웹 앱 주소(https://script.google.com/macros/s/.../exec).
-    // 만드는 방법은 apps-script/README.md 참고. 비어 있으면 미리보기 모드(아무 데도 보내지 않음).
+    // 예약 접수처: 구글 시트에 붙인 앱스크립트 웹 앱 주소. 만드는 방법은 apps-script/README.md 참고.
+    // 비어 있으면 미리보기 모드(아무 데도 보내지 않음).
     const FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxO5Pxzp6VA--UarspX0ohHwDaeZW2Owj8y3-vyfI4sB6Vsr_MOnF2yzwsHgDSW3lg6PQ/exec';
+    const PRICE = 13000, SHIPPING = 3000, MAX_QTY = 10;
 
+    // ---- 샘플 캐러셀
+    const track = document.getElementById('sample-track');
+    const dotsBox = document.getElementById('sample-dots');
+    const slides = [...track.children];
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.type = 'button';
+      d.setAttribute('aria-label', (i + 1) + '번째 샘플');
+      d.addEventListener('click', () => track.scrollTo({ left: track.clientWidth * i, behavior: 'smooth' }));
+      dotsBox.appendChild(d);
+    });
+    const dots = [...dotsBox.children];
+    const markDot = () => {
+      const i = Math.round(track.scrollLeft / track.clientWidth);
+      dots.forEach((d, k) => d.setAttribute('aria-current', k === i ? 'true' : 'false'));
+    };
+    track.addEventListener('scroll', markDot, { passive: true });
+    markDot();
+    track.addEventListener('contextmenu', e => { if (e.target.tagName === 'IMG') e.preventDefault(); });
+
+    // ---- 폼
     const form = document.getElementById('reserve-form');
-    const F = form.elements;
     const status = document.getElementById('reserve-status');
+    const nameEl = document.getElementById('name');
+    const p1 = document.getElementById('phone1');
+    const p2 = document.getElementById('phone2');
     const qtyOut = document.getElementById('qty-out');
-    const qtyInput = document.getElementById('quantity');
-    const MAX_QTY = 10;
+    const qtyBtns = form.querySelectorAll('.qty button');
+    const won = n => n.toLocaleString('ko-KR') + '원';
+    let qty = 1;
 
-    form.querySelectorAll('.qty button').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const next = Math.min(MAX_QTY, Math.max(1, Number(qtyInput.value) + Number(btn.dataset.step)));
-        qtyInput.value = next;
-        qtyOut.textContent = next;
+    function renderQty() {
+      qtyOut.textContent = qty;
+      qtyBtns[0].disabled = qty <= 1;
+      qtyBtns[1].disabled = qty >= MAX_QTY;
+      document.getElementById('total').textContent = won(PRICE * qty + SHIPPING);
+      document.getElementById('total-label').textContent = `(${qty}개, 택배 포함)`;
+    }
+    qtyBtns.forEach(btn => btn.addEventListener('click', () => {
+      qty = Math.min(MAX_QTY, Math.max(1, qty + Number(btn.dataset.step)));
+      renderQty();
+    }));
+    renderQty();
+
+    // 연락처: 숫자만, 칸마다 네 자리, 다 차면 다음 칸으로
+    [p1, p2].forEach((el, i) => {
+      el.addEventListener('input', () => {
+        el.value = el.value.replace(/\D/g, '').slice(0, 4);
+        el.classList.remove('invalid');
+        if (i === 0 && el.value.length === 4) p2.focus();
+      });
+      el.addEventListener('keydown', e => {
+        if (i === 1 && e.key === 'Backspace' && !el.value) p1.focus();
+      });
+      el.addEventListener('paste', e => {
+        const digits = (e.clipboardData.getData('text') || '').replace(/\D/g, '').replace(/^010/, '');
+        if (digits.length >= 8) { e.preventDefault(); p1.value = digits.slice(0, 4); p2.value = digits.slice(4, 8); p2.focus(); }
       });
     });
+    nameEl.addEventListener('input', () => nameEl.classList.remove('invalid'));
+    form.addEventListener('input', () => { if (!form.querySelector('.reserve-submit').disabled) status.textContent = ''; });
+    form.addEventListener('change', () => { if (!form.querySelector('.reserve-submit').disabled) status.textContent = ''; });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = F.name.value.trim();
-      const email = F.email.value.trim();
-      if (!name) return showError('이름을 적어주세요.', F.name);
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('이메일 주소를 확인해 주세요.', F.email);
-      if (!document.getElementById('agree').checked) return showError('수집 동의에 체크해 주세요.');
+      const name = nameEl.value.trim();
+      if (!name) return showError('이름을 적어주세요.', nameEl);
+      if (!/^\d{4}$/.test(p1.value)) return showError('연락처 가운데 네 자리를 적어주세요.', p1);
+      if (!/^\d{4}$/.test(p2.value)) return showError('연락처 마지막 네 자리를 적어주세요.', p2);
+      if (!document.getElementById('agree').checked) return showError('개인정보 수집·이용에 동의해 주세요.');
 
       const data = {
-        name, email,
-        phone: F.phone.value.trim(),
-        quantity: qtyInput.value,
-        message: F.message.value.trim(),
-        website: F.website.value  // 스팸봇 함정 칸(사람에겐 안 보임)
+        name,
+        phone: `010-${p1.value}-${p2.value}`,
+        quantity: qty,
+        message: document.getElementById('message').value.trim(),
+        website: form.website.value
       };
 
       const btn = form.querySelector('.reserve-submit');
       btn.disabled = true;
+      status.style.color = 'var(--ink-soft)';
       status.textContent = '보내는 중…';
 
-      if (!FORM_ENDPOINT) {
-        console.log('[미리보기] 예약 데이터:', data);
-        setTimeout(done, 400);
-        return;
-      }
+      if (!FORM_ENDPOINT) { console.log('[미리보기] 예약 데이터:', data); setTimeout(() => done(data), 400); return; }
       try {
         // text/plain으로 보내야 브라우저가 사전 요청(CORS preflight) 없이 앱스크립트로 바로 보내요.
         const res = await fetch(FORM_ENDPOINT, {
@@ -125,7 +200,7 @@
         });
         const out = await res.json();
         if (!out.ok) throw new Error(out.error || 'failed');
-        done();
+        done(data);
       } catch (err) {
         btn.disabled = false;
         showError('전송에 실패했어요. 잠시 후 다시 시도해 주세요.');
@@ -133,13 +208,17 @@
     });
 
     function showError(msg, field) {
+      status.style.color = '';
       status.textContent = msg;
-      if (field) field.focus();
+      if (field) { field.classList.add('invalid'); field.focus(); }
     }
-    function done() {
+    function done(d) {
       form.hidden = true;
+      document.querySelector('.price').hidden = true;
+      document.getElementById('done-summary').textContent =
+        `${d.name} · ${d.phone} · ${d.quantity}개 · ${won(PRICE * d.quantity + SHIPPING)}`;
       document.getElementById('reserve-done').hidden = false;
-      window.scrollTo(0, 0);
+      document.getElementById('reserve-done').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   </script>
 </body>

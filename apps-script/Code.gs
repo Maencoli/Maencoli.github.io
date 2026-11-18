@@ -5,9 +5,11 @@
  * 이 파일 내용을 통째로 붙여넣은 뒤, 웹 앱으로 배포하세요. 자세한 순서는 README.md.
  */
 
-const SHEET_NAME = '예약';
-const HEADERS = ['접수 시각', '이름', '이메일', '연락처', '수량', '남길 말'];
+const SHEET_NAME = '2027 예약';
+const HEADERS = ['접수 시각', '이름', '연락처', '수량', '금액', '남길 말'];
 const MAX_QTY = 10;
+const PRICE = 13000;
+const SHIPPING = 3000;
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -18,17 +20,16 @@ function doPost(e) {
     if (data.website) return json_({ ok: true });
 
     const name = clean_(data.name, 50);
-    const email = clean_(data.email, 100);
-    const phone = clean_(data.phone, 30);
+    const phone = String(data.phone || '').trim();
     const message = clean_(data.message, 1000);
     const quantity = Math.min(MAX_QTY, Math.max(1, parseInt(data.quantity, 10) || 1));
 
     if (!name) return json_({ ok: false, error: 'name' });
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json_({ ok: false, error: 'email' });
+    if (!/^010-\d{4}-\d{4}$/.test(phone)) return json_({ ok: false, error: 'phone' });
 
     lock.waitLock(10000);
     const sheet = getSheet_();
-    sheet.appendRow([new Date(), name, email, phone, quantity, message]);
+    sheet.appendRow([new Date(), name, "'" + phone, quantity, PRICE * quantity + SHIPPING, message]);
 
     return json_({ ok: true });
   } catch (err) {
