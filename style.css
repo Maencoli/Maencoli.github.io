@@ -512,7 +512,7 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .pickup input { margin: 3px 0 0; width: 16px; height: 16px; accent-color: var(--ink); flex: 0 0 auto; }
 .pickup:has(input:checked) { border-style: solid; border-color: var(--ink-soft); background: var(--paper); }
-.hint { margin: 7px 2px 0; font-size: 12px; font-weight: 300; line-height: 1.7; color: var(--ink-soft); }
+.hint { margin: -4px 2px 10px; font-size: 12px; font-weight: 300; line-height: 1.7; color: var(--ink-soft); }
 .notice {
   margin: 4px 0 18px;
   padding: 20px 18px;

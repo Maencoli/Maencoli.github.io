@@ -33,12 +33,13 @@
     <form class="reserve-form" id="reserve-form" novalidate>
       <div class="field">
         <label for="name">성함<span class="req">*</span></label>
-        <input id="name" name="name" type="text" autocomplete="name" maxlength="50" placeholder="홍길동" aria-describedby="name-hint" required>
         <p class="hint" id="name-hint">입금자명과 같게 적어주세요.</p>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="50" placeholder="홍길동" aria-describedby="name-hint" required>
       </div>
 
       <div class="field">
         <span class="label" id="phone-label">연락처<span class="req">*</span></span>
+        <p class="hint">택배 받으실 때 사용할 연락처예요.</p>
         <div class="phone" role="group" aria-labelledby="phone-label">
           <span class="phone-prefix">010</span>
           <span class="phone-dash">-</span>
@@ -46,13 +47,12 @@
           <span class="phone-dash">-</span>
           <input id="phone2" type="tel" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="0000" aria-label="연락처 마지막 네 자리" autocomplete="off" required>
         </div>
-        <p class="hint">택배 받으실 때 사용할 연락처예요.</p>
       </div>
 
       <div class="field" id="address-field">
         <label for="address">받으실 주소<span class="req">*</span></label>
-        <textarea id="address" name="address" rows="2" maxlength="300" autocomplete="street-address" placeholder="도로명 주소, 동·호수까지 적어주세요" aria-describedby="address-hint"></textarea>
         <p class="hint" id="address-hint">택배를 받을 수 있는 주소로 정확하게 적어주세요.</p>
+        <textarea id="address" name="address" rows="2" maxlength="300" autocomplete="street-address" placeholder="도로명 주소, 동·호수까지 적어주세요" aria-describedby="address-hint"></textarea>
       </div>
 
       <div class="field">
@@ -78,8 +78,8 @@
 
       <div class="field">
         <label for="message">남길 말 <span class="opt" id="message-opt">(선택)</span><span class="req" id="message-req" hidden>*</span></label>
-        <textarea id="message" name="message" rows="3" maxlength="1000" placeholder="예) 직접 받으러 갈게요 / 선물 포장 부탁드려요"></textarea>
         <p class="hint" id="message-hint">택배 외 다른 방법으로 받고 싶으시면 원하시는 방법을 꼭 적어주세요.</p>
+        <textarea id="message" name="message" rows="3" maxlength="1000" placeholder="예) 직접 받으러 갈게요 / 선물 포장 부탁드려요"></textarea>
       </div>
 
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
