@@ -495,6 +495,19 @@ img { display: block; max-width: 100%; height: auto; }
   border: 1px solid var(--line);
   border-radius: 16px;
 }
+.qty-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.qty-amount { text-align: right; line-height: 1.5; }
+.qty-amount-label { display: block; font-size: 11px; font-weight: 300; color: var(--ink-faint); }
+.qty-amount b { font-size: 20px; font-weight: 400; font-variant-numeric: lining-nums tabular-nums; }
+.qty-amount-detail { display: block; font-size: 11px; font-weight: 300; color: var(--ink-soft); }
+.pickup {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin: -4px 0 22px; padding: 14px 16px;
+  border: 1px dashed #d6cfc0; border-radius: 12px;
+  font-size: 13px; line-height: 1.6; cursor: pointer;
+}
+.pickup input { margin: 3px 0 0; width: 16px; height: 16px; accent-color: var(--ink); flex: 0 0 auto; }
+.pickup:has(input:checked) { border-style: solid; border-color: var(--ink-soft); background: var(--paper); }
 .hint { margin: 7px 2px 0; font-size: 12px; font-weight: 300; line-height: 1.7; color: var(--ink-soft); }
 .notice {
   margin: 4px 0 18px;

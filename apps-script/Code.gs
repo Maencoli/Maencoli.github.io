@@ -6,7 +6,7 @@
  */
 
 const SHEET_NAME = '2027 예약';
-const HEADERS = ['접수 시각', '성함', '연락처', '수량', '금액', '주소', '남길 말'];
+const HEADERS = ['접수 시각', '성함', '연락처', '주소', '수량', '수령 방법', '금액', '남길 말'];
 const MAX_QTY = 10;
 const PRICE = 13000;
 const SHIPPING = 3000;
@@ -21,17 +21,20 @@ function doPost(e) {
 
     const name = clean_(data.name, 50);
     const phone = String(data.phone || '').trim();
-    const address = clean_(data.address, 300);
+    const pickup = data.delivery === '기타';
+    const address = pickup ? '' : clean_(data.address, 300);
     const message = clean_(data.message, 1000);
     const quantity = Math.min(MAX_QTY, Math.max(1, parseInt(data.quantity, 10) || 1));
 
     if (!name) return json_({ ok: false, error: 'name' });
     if (!/^010-\d{4}-\d{4}$/.test(phone)) return json_({ ok: false, error: 'phone' });
-    if (!address && !message) return json_({ ok: false, error: 'address' });
+    if (!pickup && !address) return json_({ ok: false, error: 'address' });
+    if (pickup && !message) return json_({ ok: false, error: 'message' });
 
     lock.waitLock(10000);
     const sheet = getSheet_();
-    sheet.appendRow([new Date(), name, "'" + phone, quantity, PRICE * quantity + SHIPPING, address, message]);
+    sheet.appendRow([new Date(), name, "'" + phone, address, quantity,
+      pickup ? '택배 외' : '택배', PRICE * quantity + (pickup ? 0 : SHIPPING), message]);
 
     return json_({ ok: true });
   } catch (err) {

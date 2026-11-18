@@ -40,8 +40,8 @@
     <section class="price" aria-label="가격">
       <div class="price-row"><span>달력 1개</span><b>13,000원</b></div>
       <div class="price-row"><span>택배비</span><b>3,000원</b></div>
-      <div class="price-row price-total"><span>합계 <span id="total-label">(1개, 택배 포함)</span></span><b id="total">16,000원</b></div>
-      <p class="price-note">택배가 아닌 다른 방법으로 받고 싶으시면 아래 ‘남길 말’에 적어주세요.</p>
+      <div class="price-row price-total"><span>1개 · 택배 포함</span><b>16,000원</b></div>
+      <p class="price-note">택배 외 다른 방법으로 받으시면 택배비 3,000원은 빠져요.</p>
     </section>
 
     <form class="reserve-form" id="reserve-form" novalidate>
@@ -63,24 +63,37 @@
         <p class="hint">택배 받으실 때 사용할 연락처예요.</p>
       </div>
 
+      <div class="field" id="address-field">
+        <label for="address">받으실 주소<span class="req">*</span></label>
+        <textarea id="address" name="address" rows="2" maxlength="300" autocomplete="street-address" placeholder="도로명 주소, 동·호수까지 적어주세요" aria-describedby="address-hint"></textarea>
+        <p class="hint" id="address-hint">택배를 받을 수 있는 주소로 정확하게 적어주세요.</p>
+      </div>
+
       <div class="field">
         <span class="label">수량</span>
-        <div class="qty">
-          <button type="button" data-step="-1" aria-label="수량 줄이기">−</button>
-          <output id="qty-out" aria-live="polite">1</output>
-          <button type="button" data-step="1" aria-label="수량 늘리기">+</button>
+        <div class="qty-row">
+          <div class="qty">
+            <button type="button" data-step="-1" aria-label="수량 줄이기">−</button>
+            <output id="qty-out" aria-live="polite">1</output>
+            <button type="button" data-step="1" aria-label="수량 늘리기">+</button>
+          </div>
+          <div class="qty-amount" aria-live="polite">
+            <span class="qty-amount-label">금액</span>
+            <b id="amount">16,000원</b>
+            <span class="qty-amount-detail" id="amount-detail">13,000원 × 1 + 택배비 3,000원</span>
+          </div>
         </div>
       </div>
 
-      <div class="field">
-        <label for="address">받으실 주소<span class="req">*</span></label>
-        <textarea id="address" name="address" rows="2" maxlength="300" autocomplete="street-address" placeholder="도로명 주소, 동·호수까지 적어주세요" aria-describedby="address-hint"></textarea>
-        <p class="hint" id="address-hint">택배로 받으실 경우 꼭 적어주세요. 다른 방법으로 받고 싶으시면 비워두고 아래 ‘남길 말’에 적어주세요.</p>
-      </div>
+      <label class="pickup">
+        <input type="checkbox" id="pickup">
+        <span>택배 말고 다른 방법으로 받고 싶어요 <span class="opt">(택배비 3,000원 제외)</span></span>
+      </label>
 
       <div class="field">
-        <label for="message">남길 말 <span class="opt">(선택)</span></label>
-        <textarea id="message" name="message" rows="3" maxlength="1000" placeholder="택배 외 다른 방법으로 받고 싶으시면 여기에 적어주세요."></textarea>
+        <label for="message">남길 말 <span class="opt" id="message-opt">(선택)</span><span class="req" id="message-req" hidden>*</span></label>
+        <textarea id="message" name="message" rows="3" maxlength="1000" placeholder="예) 직접 받으러 갈게요 / 선물 포장 부탁드려요"></textarea>
+        <p class="hint" id="message-hint">택배 외 다른 방법으로 받고 싶으시면 원하시는 방법을 꼭 적어주세요.</p>
       </div>
 
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
@@ -164,13 +177,28 @@
     const qtyBtns = form.querySelectorAll('.qty button');
     const won = n => n.toLocaleString('ko-KR') + '원';
     let qty = 1;
+    const pickupEl = document.getElementById('pickup');
+    const addressEl = document.getElementById('address');
+    const messageEl = document.getElementById('message');
+    const amountOf = (q, pk) => PRICE * q + (pk ? 0 : SHIPPING);
+    pickupEl.addEventListener('change', () => {
+      const pk = pickupEl.checked;
+      document.getElementById('address-field').hidden = pk;
+      document.getElementById('message-opt').hidden = pk;
+      document.getElementById('message-req').hidden = !pk;
+      addressEl.classList.remove('invalid');
+      if (pk) messageEl.focus();
+      renderQty();
+    });
 
     function renderQty() {
       qtyOut.textContent = qty;
       qtyBtns[0].disabled = qty <= 1;
       qtyBtns[1].disabled = qty >= MAX_QTY;
-      document.getElementById('total').textContent = won(PRICE * qty + SHIPPING);
-      document.getElementById('total-label').textContent = `(${qty}개, 택배 포함)`;
+      const pk = pickupEl.checked;
+      document.getElementById('amount').textContent = won(amountOf(qty, pk));
+      document.getElementById('amount-detail').textContent =
+        `13,000원 × ${qty}` + (pk ? ' · 택배비 없음' : ' + 택배비 3,000원');
     }
     qtyBtns.forEach(btn => btn.addEventListener('click', () => {
       qty = Math.min(MAX_QTY, Math.max(1, qty + Number(btn.dataset.step)));
@@ -194,7 +222,8 @@
       });
     });
     nameEl.addEventListener('input', () => nameEl.classList.remove('invalid'));
-    document.getElementById('address').addEventListener('input', e => e.target.classList.remove('invalid'));
+    addressEl.addEventListener('input', () => addressEl.classList.remove('invalid'));
+    messageEl.addEventListener('input', () => messageEl.classList.remove('invalid'));
     document.getElementById('copy-acct').addEventListener('click', async (e) => {
       const text = '신한은행 110-385-897937';
       try { await navigator.clipboard.writeText(text); }
@@ -210,15 +239,18 @@
       if (!name) return showError('이름을 적어주세요.', nameEl);
       if (!/^\d{4}$/.test(p1.value)) return showError('연락처 가운데 네 자리를 적어주세요.', p1);
       if (!/^\d{4}$/.test(p2.value)) return showError('연락처 마지막 네 자리를 적어주세요.', p2);
-      const address = document.getElementById('address').value.trim();
-      const message = document.getElementById('message').value.trim();
-      if (!address && !message) return showError('택배로 받으실 주소를 적어주세요. 다른 방법으로 받으시려면 ‘남길 말’에 적어주세요.', document.getElementById('address'));
+      const pickup = pickupEl.checked;
+      const address = pickup ? '' : addressEl.value.trim();
+      const message = messageEl.value.trim();
+      if (!pickup && address.length < 5) return showError('택배 받으실 주소를 적어주세요.', addressEl);
+      if (pickup && !message) return showError('원하시는 수령 방법을 ‘남길 말’에 적어주세요.', messageEl);
       if (!document.getElementById('agree').checked) return showError('개인정보 수집·이용에 동의해 주세요.');
 
       const data = {
         name,
         phone: `010-${p1.value}-${p2.value}`,
         quantity: qty,
+        delivery: pickup ? '기타' : '택배',
         address,
         message,
         website: form.website.value
@@ -254,8 +286,8 @@
     function done(d) {
       form.hidden = true;
       document.querySelector('.price').hidden = true;
-      document.getElementById('done-amount').textContent = won(PRICE * d.quantity + SHIPPING);
-      document.getElementById('done-summary').textContent = `${d.name} · ${d.phone} · ${d.quantity}개`;
+      document.getElementById('done-amount').textContent = won(amountOf(d.quantity, d.delivery === '기타'));
+      document.getElementById('done-summary').textContent = `${d.name} · ${d.phone} · ${d.quantity}개 · ${d.delivery === '기타' ? '택배 외 수령' : '택배'}`;
       document.getElementById('reserve-done').hidden = false;
       document.getElementById('reserve-done').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
