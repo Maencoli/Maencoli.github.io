@@ -333,13 +333,15 @@ img { display: block; max-width: 100%; height: auto; }
   color: var(--ink-faint);
 }
 .reserve-title {
-  margin: 0 0 12px;
-  font-family: "Cormorant Garamond", Georgia, serif;
+  margin: 0 0 16px;
+  font-family: "Noto Serif KR", serif;
   font-weight: 400;
-  font-size: 44px;
-  line-height: 1;
-  letter-spacing: 0.02em;
+  font-size: 26px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
 }
+.reserve-year { font-family: "Cormorant Garamond", Georgia, serif; font-size: 1.25em; font-weight: 500; letter-spacing: 0.02em; font-variant-numeric: lining-nums; }
 .reserve-desc { margin: 0; font-size: 14px; font-weight: 300; line-height: 2; color: var(--ink-soft); }
 
 /* sample carousel */
@@ -555,7 +557,7 @@ img { display: block; max-width: 100%; height: auto; }
 @media (max-width: 720px) {
   .reserve-main { padding: 36px 16px 64px; }
   .sample { margin: 0 -16px 32px; }
-  .reserve-title { font-size: 38px; }
+  .reserve-title { font-size: 23px; }
   .reserve-form { padding: 24px 18px 20px; }
   .price { padding: 18px 18px; }
 }
