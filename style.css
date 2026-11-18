@@ -495,6 +495,37 @@ img { display: block; max-width: 100%; height: auto; }
   border: 1px solid var(--line);
   border-radius: 16px;
 }
+.hint { margin: 7px 2px 0; font-size: 12px; font-weight: 300; line-height: 1.7; color: var(--ink-soft); }
+.notice {
+  margin: 4px 0 18px;
+  padding: 20px 18px;
+  border-radius: 12px;
+  background: var(--warm);
+}
+.notice-title { margin: 0 0 10px; font-size: 13px; font-weight: 400; }
+.account {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-bottom: 20px; padding: 14px 16px;
+  background: #fff; border-radius: 10px;
+  font-size: 15px; line-height: 1.6;
+}
+.account .acct { font-variant-numeric: lining-nums tabular-nums; letter-spacing: 0.02em; }
+.account .holder { font-size: 12px; font-weight: 300; color: var(--ink-soft); }
+.copy {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--paper);
+  font: inherit; font-size: 12px; color: var(--ink);
+  cursor: pointer;
+}
+.notice-list { margin: 0; padding-left: 18px; font-size: 12.5px; font-weight: 300; line-height: 1.85; color: var(--ink-soft); }
+.notice-list li { margin-bottom: 6px; }
+.notice-list b { font-weight: 400; color: var(--ink); }
+.notice-list a { color: var(--ink); border-bottom: 1px solid var(--ink-faint); text-decoration: none; }
+.done-pay { margin: 22px auto 0; padding: 16px; max-width: 340px; background: var(--warm); border-radius: 12px; }
+.done-pay p { font-size: 13px; line-height: 1.9; color: var(--ink-soft); }
+.done-pay-amount b { font-size: 18px; font-weight: 400; color: var(--ink); margin-left: 6px; font-variant-numeric: lining-nums; }
 .reserve-done-title { margin: 0 0 14px; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: 28px; }
 .reserve-done p { margin: 0; font-size: 14px; font-weight: 300; line-height: 2.1; }
 .reserve-done .summary { margin-top: 16px; font-size: 13px; color: var(--ink-soft); }

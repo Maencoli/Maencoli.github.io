@@ -46,8 +46,9 @@
 
     <form class="reserve-form" id="reserve-form" novalidate>
       <div class="field">
-        <label for="name">이름<span class="req">*</span></label>
-        <input id="name" name="name" type="text" autocomplete="name" maxlength="50" placeholder="받으실 분 성함" required>
+        <label for="name">성함<span class="req">*</span></label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="50" placeholder="홍길동" aria-describedby="name-hint" required>
+        <p class="hint" id="name-hint">입금자명과 같게 적어주세요.</p>
       </div>
 
       <div class="field">
@@ -59,6 +60,7 @@
           <span class="phone-dash">-</span>
           <input id="phone2" type="tel" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="0000" aria-label="연락처 마지막 네 자리" autocomplete="off" required>
         </div>
+        <p class="hint">택배 받으실 때 사용할 연락처예요.</p>
       </div>
 
       <div class="field">
@@ -71,18 +73,40 @@
       </div>
 
       <div class="field">
+        <label for="address">받으실 주소<span class="req">*</span></label>
+        <textarea id="address" name="address" rows="2" maxlength="300" autocomplete="street-address" placeholder="도로명 주소, 동·호수까지 적어주세요" aria-describedby="address-hint"></textarea>
+        <p class="hint" id="address-hint">택배로 받으실 경우 꼭 적어주세요. 다른 방법으로 받고 싶으시면 비워두고 아래 ‘남길 말’에 적어주세요.</p>
+      </div>
+
+      <div class="field">
         <label for="message">남길 말 <span class="opt">(선택)</span></label>
         <textarea id="message" name="message" rows="3" maxlength="1000" placeholder="택배 외 다른 방법으로 받고 싶으시면 여기에 적어주세요."></textarea>
       </div>
 
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 
+      <div class="notice">
+        <p class="notice-title">입금 계좌</p>
+        <div class="account">
+          <div><span class="bank">신한은행</span> <span class="acct" id="acct">110-385-897937</span><br><span class="holder">예금주 오민아</span></div>
+          <button type="button" class="copy" id="copy-acct">복사</button>
+        </div>
+        <p class="notice-title">안내사항</p>
+        <ul class="notice-list">
+          <li>‘기린은 목이 길다’ 2027 달력은 <b>입금이 확인된 수량만큼만</b> 제작됩니다. 위 합계 금액을 확인하신 뒤 입금해 주세요.</li>
+          <li>제작이 완료되면 <b>12월부터 주문 순서대로</b> 택배를 보내드릴 예정입니다.</li>
+          <li>따로 확인 연락 없이 적어주신 주소와 연락처로 보내드리니, 정확하게 적어주세요.</li>
+          <li>제작이 시작된 뒤에는 환불이 어려운 점 양해 부탁드립니다.</li>
+          <li>문의는 인스타그램 <a href="https://www.instagram.com/maencoli/" target="_blank" rel="noopener noreferrer">@maencoli</a> DM 또는 <a href="https://open.kakao.com/o/sOhtiWuf" target="_blank" rel="noopener noreferrer">카카오톡 오픈채팅</a>으로 연락 주세요.</li>
+        </ul>
+      </div>
+
       <div class="consent">
         <label class="consent-check">
           <input type="checkbox" id="agree" required>
           <span>개인정보 수집·이용에 동의합니다. <span class="req">(필수)</span></span>
         </label>
-        <p class="consent-body">수집 항목: 이름, 연락처<br>이용 목적: 주문 확인 용도로만 사용하며, 확인이 끝나면 바로 파기합니다.</p>
+        <p class="consent-body">수집 항목: 성함, 연락처, 주소<br>이용 목적: 주문 확인과 배송에만 사용하며, 배송이 끝나면 바로 파기합니다.</p>
       </div>
 
       <button class="reserve-submit" type="submit">예약하기</button>
@@ -91,7 +115,11 @@
 
     <div class="reserve-done" id="reserve-done" hidden>
       <p class="reserve-done-title">Thank you</p>
-      <p>예약이 접수되었습니다.<br>제작이 완료되면 남겨주신 연락처로 연락드리겠습니다.<br>감사합니다.</p>
+      <p>‘기린은 목이 길다’ 2027 캘린더에 관심 가져주셔서 감사합니다!<br>제작이 완료되면 남겨주신 연락처로 연락드리겠습니다.</p>
+      <div class="done-pay">
+        <p class="done-pay-amount">입금하실 금액 <b id="done-amount"></b></p>
+        <p>신한은행 110-385-897937 · 예금주 오민아</p>
+      </div>
       <p class="summary" id="done-summary"></p>
     </div>
 
@@ -166,6 +194,13 @@
       });
     });
     nameEl.addEventListener('input', () => nameEl.classList.remove('invalid'));
+    document.getElementById('address').addEventListener('input', e => e.target.classList.remove('invalid'));
+    document.getElementById('copy-acct').addEventListener('click', async (e) => {
+      const text = '신한은행 110-385-897937';
+      try { await navigator.clipboard.writeText(text); }
+      catch { const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+      e.target.textContent = '복사됨'; setTimeout(() => e.target.textContent = '복사', 1500);
+    });
     form.addEventListener('input', () => { if (!form.querySelector('.reserve-submit').disabled) status.textContent = ''; });
     form.addEventListener('change', () => { if (!form.querySelector('.reserve-submit').disabled) status.textContent = ''; });
 
@@ -175,13 +210,17 @@
       if (!name) return showError('이름을 적어주세요.', nameEl);
       if (!/^\d{4}$/.test(p1.value)) return showError('연락처 가운데 네 자리를 적어주세요.', p1);
       if (!/^\d{4}$/.test(p2.value)) return showError('연락처 마지막 네 자리를 적어주세요.', p2);
+      const address = document.getElementById('address').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!address && !message) return showError('택배로 받으실 주소를 적어주세요. 다른 방법으로 받으시려면 ‘남길 말’에 적어주세요.', document.getElementById('address'));
       if (!document.getElementById('agree').checked) return showError('개인정보 수집·이용에 동의해 주세요.');
 
       const data = {
         name,
         phone: `010-${p1.value}-${p2.value}`,
         quantity: qty,
-        message: document.getElementById('message').value.trim(),
+        address,
+        message,
         website: form.website.value
       };
 
@@ -215,8 +254,8 @@
     function done(d) {
       form.hidden = true;
       document.querySelector('.price').hidden = true;
-      document.getElementById('done-summary').textContent =
-        `${d.name} · ${d.phone} · ${d.quantity}개 · ${won(PRICE * d.quantity + SHIPPING)}`;
+      document.getElementById('done-amount').textContent = won(PRICE * d.quantity + SHIPPING);
+      document.getElementById('done-summary').textContent = `${d.name} · ${d.phone} · ${d.quantity}개`;
       document.getElementById('reserve-done').hidden = false;
       document.getElementById('reserve-done').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
