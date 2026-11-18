@@ -326,11 +326,12 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .reserve-head { text-align: center; margin-bottom: 32px; }
 .reserve-eyebrow {
-  margin: 0 0 4px;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-style: italic;
-  font-size: 16px;
-  color: var(--ink-faint);
+  margin: 0 0 14px;
+  font-family: "Noto Serif KR", serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
 }
 .reserve-title {
   margin: 0 0 16px;
