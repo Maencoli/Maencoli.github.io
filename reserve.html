@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261118">
 </head>
 <body>
   <main class="reserve-main">
@@ -270,8 +270,10 @@
       form.hidden = true;
       document.getElementById('done-amount').textContent = won(amountOf(d.quantity, d.delivery === '기타'));
       document.getElementById('done-summary').textContent = `${d.name} · ${d.phone} · ${d.quantity}개 · ${d.delivery === '기타' ? '택배 외 수령' : '택배'}`;
+      document.querySelector('.sample').hidden = true;
+      document.querySelector('.reserve-desc').hidden = true;
       document.getElementById('reserve-done').hidden = false;
-      document.getElementById('reserve-done').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      window.scrollTo(0, 0);
     }
   </script>
 </body>
