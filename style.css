@@ -307,6 +307,10 @@ img { display: block; max-width: 100%; height: auto; }
   .page-about .footer { padding: 14px 20px; }
 }
 
+/* ---------- links to the 2027 reservation ---------- */
+.empty-cta { display: inline-block; margin: 28px 0 0; font-size: 12.5px; }
+.about-cta { display: inline-block; margin: 6px 0 0; }
+
 /* ---------- 2027 calendar reservation ---------- */
 .reserve-main [hidden] { display: none !important; }
 .reserve-main {
