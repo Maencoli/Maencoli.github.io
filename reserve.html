@@ -367,6 +367,12 @@ img { display: block; max-width: 100%; height: auto; }
         <textarea id="message" name="message" rows="3" maxlength="1000" placeholder="예) 직접 받으러 갈게요"></textarea>
       </div>
 
+      <div class="field">
+        <label for="referral">기목길 달력을 어떻게 알게 되셨나요? <span class="opt">(선택)</span></label>
+        <p class="hint" id="referral-hint">추천인이 있다면 입력해주세요!</p>
+        <input id="referral" name="referral" type="text" maxlength="100" placeholder="예) 인스타그램, 친구 추천(홍길동)" aria-describedby="referral-hint">
+      </div>
+
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 
       <div class="notice">
@@ -521,6 +527,7 @@ img { display: block; max-width: 100%; height: auto; }
         delivery: pickup ? '기타' : '택배',
         address,
         message,
+        referral: document.getElementById('referral').value.trim(),
         website: form.website.value
       };
 

@@ -6,7 +6,7 @@
  */
 
 const SHEET_NAME = '2027 예약';
-const HEADERS = ['접수 시각', '성함', '연락처', '주소', '수량', '수령 방법', '금액', '남길 말'];
+const HEADERS = ['접수 시각', '성함', '연락처', '주소', '수량', '수령 방법', '금액', '남길 말', '알게 된 경로·추천인'];
 const MAX_QTY = 10;
 const PRICE = 13000;
 const SHIPPING = 3000;
@@ -24,6 +24,7 @@ function doPost(e) {
     const pickup = data.delivery === '기타';
     const address = pickup ? '' : clean_(data.address, 300);
     const message = clean_(data.message, 1000);
+    const referral = clean_(data.referral, 100);
     const quantity = Math.min(MAX_QTY, Math.max(1, parseInt(data.quantity, 10) || 1));
 
     if (!name) return json_({ ok: false, error: 'name' });
@@ -34,7 +35,7 @@ function doPost(e) {
     lock.waitLock(10000);
     const sheet = getSheet_();
     sheet.appendRow([new Date(), name, "'" + phone, address, quantity,
-      pickup ? '택배 외' : '택배', PRICE * quantity + (pickup ? 0 : SHIPPING), message]);
+      pickup ? '택배 외' : '택배', PRICE * quantity + (pickup ? 0 : SHIPPING), message, referral]);
 
     return json_({ ok: true });
   } catch (err) {
@@ -56,8 +57,11 @@ function getSheet_() {
   if (sheet.getLastRow() === 0) {
     sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
-    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
+  } else {
+    // 칸이 새로 늘어났으면 제목 줄도 맞춰줘요(이미 쌓인 예약은 그대로).
+    sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
   }
+  sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
   return sheet;
 }
 
