@@ -114,6 +114,10 @@ img { display: block; max-width: 100%; height: auto; }
 }
 .sample-dots button[aria-current="true"] { opacity: 1; background: var(--ink); transform: scale(1.15); }
 .sample-note { margin: 8px 0 0; text-align: center; font-size: 11px; font-weight: 300; color: var(--ink-faint); }
+.real { margin: 0 0 36px; text-align: center; }
+.real img { display: block; width: 100%; max-width: 100%; height: auto; border-radius: 14px; -webkit-user-drag: none; user-select: none; }
+.real-title { margin: 18px 0 6px; font-size: 15px; font-weight: 400; }
+.real-desc { margin: 0; font-size: 13px; font-weight: 300; line-height: 1.9; color: var(--ink-soft); }
 
 /* price */
 .price {
@@ -312,6 +316,12 @@ img { display: block; max-width: 100%; height: auto; }
       </div>
       <div class="sample-dots" id="sample-dots"></div>
       <p class="sample-note">샘플 이미지예요 · 옆으로 넘겨보세요</p>
+    </section>
+
+    <section class="real" aria-label="실물 사진">
+      <img src="image/cal-real.jpg" alt="이전에 만든 기목길 탁상 달력 실물 사진" loading="lazy" draggable="false">
+      <p class="real-title">실물은 이런 느낌이에요</p>
+      <p class="real-desc">사진은 이전에 만든 기목길 달력이에요.<br>책상 위에 세워두는 손바닥만 한 스프링 탁상 달력으로,<br>한 장씩 넘기며 한 달에 한 장씩 그림을 만날 수 있어요.</p>
     </section>
 
 
